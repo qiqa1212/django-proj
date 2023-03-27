@@ -1,0 +1,12 @@
+{% extends 'forums/base.html' %}
+
+{% block content %}
+  <h1>New Comment</h1>
+  <form method="POST" class="post-form">{% csrf_token %}
+    <div class="form-group">
+      <label for="{{ form.text.id_for_label }}">Comment:</label>
+      {{ form.text }}
+    </div>
+    <button type="submit" class="save btn btn-default">Add comment</button>
+  </form>
+{% endblock %}
