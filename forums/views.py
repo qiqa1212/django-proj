@@ -12,6 +12,9 @@ from django.http import HttpResponseRedirect
 def index(request):
      return render(request, 'forums/index.html')
 
+def rules(request):
+    return render(request, 'forums/rules.html')
+
 
 def topics(request):
      topics = Topic.objects.order_by('date_added')
@@ -32,7 +35,7 @@ def new_topic(request):
         form = TopicForm(data=request.POST)
         if form.is_valid():
             topic = form.save(commit=False)
-            topic.author = request.user
+            topic.owner = request.user # установка текущего пользователя как владельца
             topic.save()
             return redirect('forums:topics')
     context = {'form': form}

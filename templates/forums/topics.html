@@ -1,12 +1,22 @@
 {% extends "forums/base.html" %}
+
 {% block content %}
-     <p>Теми</p>
-     <ul>
+    <div class='container'>
+        <h1 class="mt-5"><p>Теми:</p></h1>
+        
         {% for topic in topics %}
-            <li><a href="{% url 'forums:topic' topic.id %}">{{topic}}</a></li>
+            <h2><a class="d-block border-top border-bottom border-dark border-3 text-dark text-decoration-none" href="{% url 'forums:topic' topic.id %}"><div class="div my-3  mx-3"><h2>{{topic}}</h2></div></a></h2>
         {% empty %}
-            <li> Тем для обговорення - немає </li>
+            <h6>Тем для обговорення - немає </h6>
         {% endfor %}
-    </ul>
-    <a href="{% url 'forums:new_topic' %}">Add a new topic:</a>
+        {% if user.is_authenticated %}
+        <h3 class="mt-4 text-end"><a href="{% url 'forums:new_topic' %}" class="nav-link ">Додати тему</a></h3>
+        {% else %}
+        {% endif %}  
+    </div>
 {% endblock content %}
+
+
+
+
+

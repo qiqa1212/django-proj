@@ -1,18 +1,26 @@
 {% extends 'forums/base.html' %}
 
 {% block content %}
-     <p>Тема: {{ topic }}</p>
-     <h3>Comments:</h3>
+<div class="container">
+     <div class="mt-5  mb-5 p-5 bg-dark text-white rounded">
+          <h1>Тема: {{ topic }}</h1>
+     </div>
+     
+     <h2>Коментарі:</h3>
      {% for comment in comments %}
           {% if comment.approved_comment %}
-               <div class="comment">
-                    <p class="info">Comment by {{ comment.author }} on {{ comment.created_date }}</p>
-                    <p>{{ comment.text|linebreaks }}</p>
+               <div class="comment mx-3">
+                    <h4 class="info"> {{ comment.author }}</h4>
+                    <h5 class="px-3 text-muted">{{ comment.text|linebreaks }}</h5>
                </div>
           {% endif %}
      {% empty %}
           <p>No comments yet.</p>
      {% endfor %}
-     <h3>Add comment:</h3>
-     <a href="{% url 'forums:new_comment' topic.id %}">Add comment</a>
+     {% if user.is_authenticated %}
+     <h3 class=""><a class="mt-4 text-end nav-link" href="{% url 'forums:new_comment' topic.id %}">Add comment</a></h3>
+     {% else %}
+     {% endif %} 
+</div>
+     
 {% endblock content %}
